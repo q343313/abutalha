@@ -183,6 +183,27 @@ main { max-width: 1200px; margin: auto; padding: 20px; }
 .about-card .link:hover {
   text-decoration: underline;
 }
+/* Mobile menu styles */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: 70px;
+  right: 20px;
+  background: var(--card);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 15px;
+  z-index: 100;
+  min-width: 180px;
+}
+
+.mobile-menu a,
+.mobile-menu button {
+  display: block;
+  margin: 8px 0;
+}
+
 
 
 /* Profile Section */
@@ -239,27 +260,48 @@ footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 1
 
 @media (max-width: 1024px) { .hero{grid-template-columns:1fr 1fr;} }
 @media (max-width: 768px) { .hero{grid-template-columns:1fr;} }
+@media screen and (max-width: 900px) {
+  nav { display: none; }
+  .mobile-menu-btn { display: block; }
+}
+@media screen and (min-width: 901px) {
+  .mobile-menu-btn { display: none; }
+  .mobile-menu { display: none !important; }
+}
+
 
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="brand">
-      <div class="logo">TA</div>
-      <div>
-        <h1>Talha Afridi</h1>
-        <p style="color:var(--muted)">Flutter & Fullstack Developer</p>
-      </div>
+<header>
+  <div class="brand">
+    <div class="logo">TA</div>
+    <div>
+      <h1>Talha Afridi</h1>
+      <p style="color:var(--muted)">Flutter & Fullstack Developer</p>
     </div>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#about">About</a>
-      <a href="#contact">Contact</a>
-      <a href="#" id="cv-btn">Download CV</a>
-      <button id="theme-toggle" style="margin-left:12px; padding:6px 12px; border-radius:8px; cursor:pointer; border:none; font-weight:600;">🌙</button>
-    </nav>
-  </header>
+  </div>
+
+  <nav id="desktop-nav">
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#" id="cv-btn">Download CV</a>
+    <button id="theme-toggle">🌙</button>
+  </nav>
+
+  <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
+
+  <div class="mobile-menu" id="mobile-menu">
+    <a href="#projects">Projects</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+    <a href="#" id="mobile-cv-btn">Download CV</a>
+    <button id="mobile-theme-toggle">🌙</button>
+  </div>
+</header>
+
 
   <main>
     <!-- Hero Section -->
@@ -414,206 +456,67 @@ footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 1
 <footer>© <span id="year"></span> Talha Afridi — All rights reserved.</footer>
 <a href="https://wa.me/923182586785" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
 
+
+
+
 <script>
-document.getElementById('year').textContent = new Date().getFullYear();
+// MOBILE MENU TOGGLE
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
 
-document.getElementById('cv-btn').addEventListener('click', e=>{
-  e.preventDefault();
-  const link=document.createElement('a');
-  link.href='Talha_Afridi_Professional_CV.pdf';
-  link.download='Talha_Afridi_Professional_CV.pdf';
-  link.click();
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-document.getElementById('contact-form').addEventListener('submit', e=>{
-  e.preventDefault();
-  const name=document.getElementById('name').value;
-  const email=document.getElementById('email').value;
-  const msg=document.getElementById('message').value;
-  const mailto=`mailto:talhashahafridi@gmail.com?subject=Message from ${encodeURIComponent(name)}&body=Email: ${encodeURIComponent(email)}%0A%0A${encodeURIComponent(msg)}`;
-  window.location.href=mailto;
-});
-
-// Theme toggle
+// THEME TOGGLE
 const themeBtn = document.getElementById('theme-toggle');
+const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
 const savedTheme = localStorage.getItem('theme');
-if(savedTheme) {
-  document.body.classList.add(savedTheme + '-theme');
+
+if(savedTheme){
+  document.body.classList.add(savedTheme+'-theme');
   themeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
+  mobileThemeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
 } else {
-  document.body.classList.add('dark-theme'); // default
+  document.body.classList.add('dark-theme');
   themeBtn.textContent = '🌙';
+  mobileThemeBtn.textContent = '🌙';
 }
 
-themeBtn.addEventListener('click', () => {
-  if(document.body.classList.contains('light-theme')) {
+function toggleTheme(){
+  if(document.body.classList.contains('light-theme')){
     document.body.classList.remove('light-theme');
     document.body.classList.add('dark-theme');
     themeBtn.textContent = '🌙';
+    mobileThemeBtn.textContent = '🌙';
     localStorage.setItem('theme','dark');
   } else {
     document.body.classList.remove('dark-theme');
     document.body.classList.add('light-theme');
     themeBtn.textContent = '☀️';
+    mobileThemeBtn.textContent = '☀️';
     localStorage.setItem('theme','light');
   }
+}
+
+themeBtn.addEventListener('click', toggleTheme);
+mobileThemeBtn.addEventListener('click', () => {
+  toggleTheme();
+  mobileMenu.style.display = 'none';
 });
+
+// CV DOWNLOAD
+function downloadCV(e){
+  e.preventDefault();
+  const link = document.createElement('a');
+  link.href = 'Talha_Afridi_Professional_CV.pdf';
+  link.download = 'Talha_Afridi_Professional_CV.pdf';
+  link.click();
+}
+
+document.getElementById('cv-btn').addEventListener('click', downloadCV);
+document.getElementById('mobile-cv-btn').addEventListener('click', e => { downloadCV(e); mobileMenu.style.display='none'; });
 </script>
 </body>
 </html>
 
-
-
-
- <!--   
-  <main>
-  
-    <section class="hero">
-      <div class="intro">
-        <h2>👋 Hi, I’m Talha — Flutter, FastAPI & Python Developer</h2>
-        <p>I build modern apps using Flutter, FastAPI, and Firebase — with clean architecture, BLoC state management, and secure backend integration. My goal is to create seamless digital experiences from backend to frontend.</p>
-        <div class="chips">
-          <div class="chip">Flutter</div><div class="chip">FastAPI</div><div class="chip">Firebase</div>
-          <div class="chip">Hive</div><div class="chip">SQLite</div><div class="chip">Python</div>
-          <div class="chip">BLoC</div><div class="chip">Provider</div><div class="chip">Cybersecurity</div>
-        </div>
-        <a class="cta" href="#projects">Explore Projects 🚀</a>
-      </div>
-  
-<div class="profile-container">
-  <div class="profile">
-    <div class="profile-glow"></div>
-    <img src="profile.jpeg" alt="Talha Afridi" class="profile-img">
-  </div>
-  <h2 class="profile-name">Talha Afridi</h2>
-  <p class="profile-role">Flutter & Cybersecurity Developer</p>
-</div>
-
-
-    </section>
-
-    <h2 id="projects" class="section-title">🚧 Featured Projects</h2>
-    <div class="projects">
-      <div class="card project">
-          <h3>Smart Expense Manager</h3>
-          <p>Flutter app with Hive offline DB, categories, charts, and export to PDF. FastAPI backend for sync.</p>
-          <div class="flex"><a href="https://github.com/q343313/Expence-Tracker-App" target="_blank">View Code</a> <a href="projects/expence.html">View Details</a> </div>
-        </div>
-        <div class="card project">
-          <h3>E-Local Market</h3>
-          <p>Flutter frontend + FastAPI backend demo with authentication, image upload, and push notifications.</p>
-          <div class="flex"><a href="https://github.com/q343313/localmarket" target="_blank">View Code</a> <a href="projects/market.html">View Details</a> </div>
-        </div>
-
-        <div class="card project">
-
-          <h3>Password Manager</h3>
-          <p>Single-page Flutter-style Password manager that secure your password built with flutter. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/Password-Manager.git" target="_blank">View Code</a> <a href="projects/pasman.html">View Details</a> </div>
-        </div>
-        <div class="card project">
-          <h3>AI Chat App</h3>
-          <p>Flutter chat interface integrated with OpenRouter / custom backend. Features streaming responses and offline cache.</p>
-          <div class="flex"><a href="https://github.com/q343313/chatGptApp" target="_blank">View Code</a> <a href="projects/chat.html">View Details</a></div>
-        </div>
-         <div class="card project">
-     
-          <h3>TODO App</h3>
-          <p>Single-page Flutter-style TODO-APP site built with HTML/CSS/JS. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/TODO-APP" target="_blank">View Code</a> <a href="projects/ads.html">View Details</a></div>
-        </div>
-    </div>
-
-     <section id="projects" class="mt">
-      <h2 id="projects" class="section-title">🚧 Python Projects</h2>
-      <div class="projects">
-        <div class="card project">
-
-          <h3>All About Python</h3>
-          <p>python with Hive offline DB, categories, charts, and export to PDF. FastAPI backend for sync.</p>
-          <div class="flex"><a href="https://github.com/q343313/full_python" target="_blank">View Code</a> </div>
-        </div>
-        <div class="card project">
-          <h3>Python Advanced</h3>
-          <p>advance python with api firebase etc.</p>
-          <div class="flex"><a href="https://github.com/q343313/python1" target="_blank">View Code</a></div>
-        </div>
-
-        <div class="card project">
-
-          <h3>Password Tracker</h3>
-          <p>Single-page Password tracker Password manager that secure your password built with HTML/CSS/JS. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/pasword-tracker-app-python" target="_blank">View Code</a>  </div>
-        </div>
-        <div class="card project">
-          <h3>AI Chat App</h3>
-          <p>Ai chat App using python integrated with OpenRouter / custom backend. Features streaming responses and offline cache.</p>
-          <div class="flex"><a href="https://github.com/q343313/chat-app-in-python" target="_blank">View Code</a></div>
-        </div>
-
-      </div>
-    </section>
-
-<section class="about" id="about">
-  <h3>About Me</h3>
-  <p>
-    I'm <b>Talha Afridi</b> — a passionate <b>Flutter & Fullstack Developer</b> and <b>Cybersecurity student</b> who loves building real-world digital products with modern technologies.
-  </p>
-
-  <div class="about-grid">
-
-    <div class="about-card">
-      <h4>🎓 Education And Personal Info</h4>
-      <ul>
-        <li><b>BS Cybersecurity</b> — IMSciences University, Peshawar (1st Semester)</li>
-        <li><b>F.Sc (Pre-Engineering)</b> — Islamia College, Peshawar (830 / 1200 Marks)</li>
-        <li><b>Matriculation</b> — Afridi Model School & College (1017 / 1100 Marks)</li>
-         <p><b>Email:</b> <a href="mailto:talhashahafridi@gmail.com" class="link">talhashahafridi@gmail.com</a></p>
-      <p><b>Phone:</b> 0318-2586785</p>
-      <p><b>Location:</b> Peshawar, Pakistan</p>
-      </ul>
-    </div>
-
-    <div class="about-card">
-      <h4>💡 Technical Skills</h4>
-      <p>
-        <b>App Development:</b> Flutter, Dart, Provider, BLoC, MVVM, UI/UX Design<br>
-        <b>Backend:</b> FastAPI, Python, Firebase, REST APIs, JSON, SQLite, Hive<br>
-        <b>Data Science:</b> NumPy, Pandas, Matplotlib<br>
-        <b>Cyber & OS Tools:</b> Kali Linux, Networking, Git & GitHub, Terminal Commands<br>
-        <b>Other Skills:</b> Problem Solving, Debugging, Deployment (Play Store & Web)
-      </p>
-    </div>
-
-
-    <div class="about-card">
-      <h4>🚀 Experience</h4>
-      <p>
-        - Developed <b>15+ real-world Flutter apps</b> (ChatGPT App, News App, Password Manager, Expense Tracker, Todo List, etc.)<br>
-        - Created <b>30+ Python projects</b> including automation, file management, and backend systems.<br>
-        - Hands-on with <b>Kali Linux</b> and ethical hacking fundamentals.<br>
-        - Skilled in <b>UI/UX design</b> using Figma and responsive layouts.
-      </p>
-    </div>
-
-  
-  <div class="social-links">
-    <a href="https://web.facebook.com/profile.php?id=61580024770723" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-    <a href="https://www.instagram.com/talha_afridi_56/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
-    <a href="https://www.tiktok.com/@talhashahafridi?_t=ZS-90sHnyPb3Lz&_r=1" target="_blank" title="TikTok"><i class="fab fa-tiktok"></i></a>
-    <a href="https://www.youtube.com/@codewithtalha-w2h" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
-    <a href="https://github.com/q343313" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
-  </div>
-</section>
-
-
-
-   <h2 id="contact" class="section-title">📬 Contact Me</h2>
-  <form id="contact-form">
-    <input type="text" id="name" placeholder="Your name" required>
-    <input type="email" id="email" placeholder="Your email" required>
-    <textarea id="message" placeholder="Your message..." required></textarea>
-    <button type="submit" class="submit-btn">Send Message</button>
-  </form>
-</main>
-     -->
