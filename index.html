@@ -114,7 +114,7 @@ header{
 /* Mobile nav */
 .mobile-nav { display:none; position: relative; }
 .mobile-menu-icon{
-  font-size:28px;
+  font-size:24px;
   background:linear-gradient(135deg,#00c6ff,#0072ff);
   border:none; padding:8px 14px; border-radius:12px; color:#fff;
   box-shadow:0 4px 15px rgba(0,0,0,0.3);
@@ -127,38 +127,75 @@ header{
 }
 
 /* Mobile menu container */
-#mobile-menu{
-  display:none; flex-direction: column; gap:12px;
-  position:absolute; top:70px; right:0;
+/* MOBILE MENU FIX FOR PHONES 400-500px */
+/* Mobile menu style */
+#mobile-menu {
+  position: fixed;
+  top: 60px;
+  right: 5%;
+  width: 90%;
+  max-width: 300px;
   background: var(--card);
-  padding:20px;
-  border-radius:16px;
-  box-shadow:0 8px 30px rgba(0,0,0,0.3);
-  min-width:180px;
-  z-index:50;
-  transition: all 0.4s ease;
+  display: none;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  z-index: 999;
+  transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/* Mobile nav buttons */
-.mobile-nav-btn{
-  display:block;
-  text-decoration:none;
-  font-weight:600;
-  padding:10px 14px;
-  border-radius:12px;
-  background:linear-gradient(135deg,#00c6ff,#0072ff);
-  color:#fff;
-  text-align:center;
-  box-shadow:0 4px 15px rgba(0,0,0,0.2);
-  transition: all 0.3s ease;
+#mobile-menu.show {
+  display: flex;
+  transform: translateY(0);
+  opacity: 1;
 }
-.mobile-nav-btn:hover{
-  transform: translateY(-2px) scale(1.05);
-  box-shadow:0 6px 20px rgba(0,0,0,0.4);
+
+.mobile-nav-btn {
+  padding: 10px 14px;
+  font-size: 14px;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #fff;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  transition: transform 0.2s, box-shadow 0.2s;
 }
+
+.mobile-nav-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.3);
+}
+
+/* Mobile Menu Button */
+.mobile-menu-btn {
+  display: inline-block;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  color: #fff;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+}
+
+/* Auto-close menu on click */
+#mobile-menu a, #mobile-menu button {
+  width: 100%;
+}
+
+/* Media Queries for small screens */
+@media (max-width: 400px){
+  header nav { display: none; } /* Hide desktop nav */
+  .mobile-menu-btn { display: block; }
+}
+
 
 /* Responsive */
-@media(max-width:900px){
+@media(max-width:400px){
   nav.desktop-nav { display:none; }
   .mobile-nav { display:flex; align-items:center; }
 }
@@ -396,17 +433,19 @@ footer{
     <button class="nav-btn" id="theme-toggle">🌙</button>
   </nav>
 
-  <!-- Mobile Nav -->
-  <div class="mobile-nav">
-    <button id="mobile-menu-btn" class="mobile-menu-icon">☰</button>
-    <div id="mobile-menu">
-      <a class="mobile-nav-btn" href="#projects">Projects</a>
-      <a class="mobile-nav-btn" href="#about">About</a>
-      <a class="mobile-nav-btn" href="#contact">Contact</a>
-      <a class="mobile-nav-btn" href="Talha_Afridi_Professional_CV.pdf" download id="mobile-cv-btn">Download CV</a>
-      <button class="mobile-nav-btn" id="mobile-theme-toggle">🌙</button>
-    </div>
-  </div>
+<!-- Mobile Menu Button -->
+<button id="mobile-menu-btn" class="mobile-menu-btn">☰</button>
+
+<!-- Mobile Menu -->
+<div id="mobile-menu">
+  <a href="#projects" class="mobile-nav-btn">Projects</a>
+  <a href="#about" class="mobile-nav-btn">About</a>
+  <a href="#contact" class="mobile-nav-btn">Contact</a>
+  <a href="Talha_Afridi_Professional_CV.pdf" download class="mobile-nav-btn">Download CV</a>
+  <button id="mobile-theme-toggle" class="mobile-nav-btn">🌙</button>
+</div>
+
+
 </header>
 
 
@@ -681,8 +720,21 @@ footer{
 
 
 <script>
- const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+  // Mobile menu toggle
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
+
+mobileMenuBtn.addEventListener('click', () => {
+  mobileMenu.classList.toggle('show');
+});
+
+// Auto-close on click
+document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    mobileMenu.classList.remove('show');
+  });
+});
+
 const mobileBtns = document.querySelectorAll('.mobile-nav-btn');
 
 // Toggle mobile menu
@@ -716,6 +768,13 @@ function toggleTheme(){
 themeBtn.addEventListener('click', toggleTheme);
 mobileThemeBtn.addEventListener('click', toggleTheme);
 
+
+// Auto-close on click
+document.querySelectorAll('#mobile-menu a, #mobile-menu button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    mobileMenu.classList.remove('show');
+  });
+});
 
 
 document.getElementById('cv-btn').addEventListener('click', downloadCV);
