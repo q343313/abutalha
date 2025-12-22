@@ -3,210 +3,217 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
   <title>Talha Afridi — Flutter & Fullstack Developer</title>
-  <meta name="description" content="Talha Afridi — Flutter, FastAPI, Firebase & Python Developer. Modern, animated and production-ready portfolio." />
+
+  <!-- SEO -->
+  <meta name="description" content="Talha Afridi — Flutter, FastAPI, Firebase & Python Developer. Production-ready apps with clean architecture and cybersecurity mindset." />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Talha Afridi | Flutter & Fullstack Developer">
+  <meta property="og:description" content="Flutter, FastAPI & Python developer building scalable and secure applications">
+  <meta property="og:type" content="website">
+
+  <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <style>
-/* Import Cascadia Code */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
-
+<style>
+/* ================= ROOT ================= */
 :root {
-  --bg: #f4f4f4;
-  --card: rgba(255,255,255,0.9);
-  --text: #222;
-  --muted: #555;
-  --accent: #00c6ff;
-  --accent2: #0072ff;
-  --shadow: 0 4px 15px rgba(0,0,0,0.1);
+  --bg:#f4f4f4;
+  --card:rgba(255,255,255,.9);
+  --text:#222;
+  --muted:#555;
+  --accent:#00c6ff;
+  --accent2:#0072ff;
+  --shadow:0 4px 15px rgba(0,0,0,.1);
 }
-
 body.dark-theme {
-  --bg: #121212;
-  --card: rgba(20,20,20,0.85);
-  --text: #eee;
-  --muted: #aaa;
-  --accent: #00c6ff;
-  --accent2: #8e2de2;
-  --shadow: 0 4px 15px rgba(0,0,0,0.4);
+  --bg:#121212;
+  --card:rgba(20,20,20,.88);
+  --text:#eee;
+  --muted:#aaa;
+  --shadow:0 4px 15px rgba(0,0,0,.45);
 }
 
-body {
-  font-family: 'Cascadia Code', monospace;
-  background: var(--bg);
-  color: var(--text);
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-  transition: background 0.4s, color 0.4s;
+*{box-sizing:border-box;margin:0;padding:0}
+
+body{
+  font-family:'Fira Code', monospace;
+  background:var(--bg);
+  color:var(--text);
+  transition:.4s;
+  overflow-x:hidden;
 }
 
-body::before {
-  content: "";
-  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: url('profile.jpeg') center/cover no-repeat;
-  z-index: -1;
-  transition: opacity 0.4s, filter 0.4s;
+h1,h2,h3,h4,h5,h6{
+  font-family:'Poppins', sans-serif;
+  font-weight:700;
 }
 
-body.light-theme::before {
-  opacity: 0.05;
-  filter: blur(10px) brightness(1);
+/* Background blur */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:url('profile.jpeg') center/cover no-repeat;
+  z-index:-1;
+  filter:blur(10px);
+  opacity:.08;
 }
-body.dark-theme::before {
-  opacity: 0.25;
-  filter: blur(10px) brightness(0.5);
-}
-
-* { box-sizing: border-box; margin: 0; padding: 0; }
-
-header {
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 28px 40px; max-width: 1200px; margin: auto;
-  flex-wrap: wrap; animation: fadeDown 1s ease;
+body.dark-theme::before{
+  opacity:.25;
+  filter:blur(10px) brightness(.5);
 }
 
-.brand { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-
-.logo {
-  width: 56px; height: 56px;
-  background: linear-gradient(135deg,var(--accent),var(--accent2));
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 16px;
-  font-weight: 600; font-size: 15px; color: #011;
-  box-shadow: var(--shadow);
+/* ================= HEADER ================= */
+header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:28px 40px;
+  max-width:1200px;
+  margin:auto;
+  flex-wrap:wrap;
 }
 
-/* Set headings bold, content normal */
-h1, h2, h3, h4, h5, h6 {
-  font-weight: 700; /* Keep headings bold */
+.brand{display:flex;align-items:center;gap:12px}
+
+/* Logo Gradient */
+.logo{
+  width:56px;height:56px;
+  border-radius:16px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#00c6ff,#0072ff,#8e2de2);
+  font-weight:700;color:#fff;
+  box-shadow:0 4px 20px rgba(0,0,0,0.3);
+  font-size:20px;
 }
 
-p, .intro p, .chips .chip, .project p, .about p, .about-card ul, form input, form textarea, .flex a, footer {
-  font-weight: 400; /* Normal weight for regular text */
-  font-size: 14px;  /* Slightly smaller text for better readability */
+/* Desktop nav buttons */
+.desktop-nav .nav-btn{
+  text-decoration:none;
+  font-weight:600;
+  margin:6px;
+  padding:10px 18px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:#fff;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+.desktop-nav .nav-btn:hover{
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:0 6px 25px rgba(0,0,0,0.3);
 }
 
-/* Specific smaller tweaks */
-.intro h2 { font-size: 28px; } /* Slightly smaller hero heading */
-.profile-name { font-size: 24px; }
-.profile-role { font-size: 16px; }
-.chip { font-size: 12px; padding: 5px 12px; }
-.project h3 { font-size: 16px; }
-.about h3 { font-size: 24px; }
-.about-card h4 { font-size: 16px; }
-.flex a { font-size: 12px; }
-form input, form textarea { font-size: 13px; padding: 10px; }
-form button { font-size: 14px; padding: 10px; }
-footer { font-size: 13px; }
-
-
-nav a {
-  text-decoration: none;
-  font-weight: 600;
-  margin: 6px;
-  color: var(--accent);
-  transition: 0.3s;
-  padding: 8px 14px;
-  border-radius: 10px;
+/* Mobile nav */
+.mobile-nav { display:none; position: relative; }
+.mobile-menu-icon{
+  font-size:28px;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  border:none; padding:8px 14px; border-radius:12px; color:#fff;
+  box-shadow:0 4px 15px rgba(0,0,0,0.3);
+  cursor:pointer;
+  transition: all 0.3s ease;
+}
+.mobile-menu-icon:hover{
+  transform: scale(1.1);
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
 }
 
-nav a:hover {
-  background: linear-gradient(90deg,var(--accent),var(--accent2));
-  color: #011;
-  box-shadow: 0 0 10px var(--accent2);
-}
-
-nav button {
-  margin-left: 12px;
-  padding: 6px 12px;
-  border-radius: 8px;
-  cursor: pointer;
-  border: none;
-  font-weight: 600;
-  background: var(--accent);
-  color: #fff;
-  transition: transform 0.3s;
-}
-nav button:hover { transform: scale(1.05); }
-
-main { max-width: 1200px; margin: auto; padding: 20px; }
-
-.hero { display: grid; grid-template-columns: 1fr 380px; align-items: center; gap: 50px; margin-top: 30px; }
-
-.intro {
+/* Mobile menu container */
+#mobile-menu{
+  display:none; flex-direction: column; gap:12px;
+  position:absolute; top:70px; right:0;
   background: var(--card);
-  backdrop-filter: blur(10px);
-  border-radius: 18px;
-  padding: 32px;
-  box-shadow: var(--shadow);
-  animation: fadeUp 1.2s ease;
+  padding:20px;
+  border-radius:16px;
+  box-shadow:0 8px 30px rgba(0,0,0,0.3);
+  min-width:180px;
+  z-index:50;
+  transition: all 0.4s ease;
 }
 
-.intro h2 { font-size: 32px; line-height: 1.3; color: var(--text); }
-.intro p { margin-top: 12px; color: var(--muted); font-size: 15px; }
-
-.chips { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 10px; }
-.chip {
-  background: rgba(255,255,255,0.1);
-  padding: 6px 14px;
-  border-radius: 999px;
-  font-size: 13px;
-  color: var(--text);
-  font-family: 'Cascadia Code', monospace;
-  border: 1px solid rgba(0,0,0,0.08);
-  transition: color 0.4s, border-color 0.4s;
+/* Mobile nav buttons */
+.mobile-nav-btn{
+  display:block;
+  text-decoration:none;
+  font-weight:600;
+  padding:10px 14px;
+  border-radius:12px;
+  background:linear-gradient(135deg,#00c6ff,#0072ff);
+  color:#fff;
+  text-align:center;
+  box-shadow:0 4px 15px rgba(0,0,0,0.2);
+  transition: all 0.3s ease;
+}
+.mobile-nav-btn:hover{
+  transform: translateY(-2px) scale(1.05);
+  box-shadow:0 6px 20px rgba(0,0,0,0.4);
 }
 
-.cta {
-  display: inline-block;
-  margin-top: 24px;
-  background: linear-gradient(90deg,var(--accent),var(--accent2));
-  color: #011;
-  font-weight: 700;
-  padding: 12px 22px;
-  border-radius: 10px;
-  transition: 0.3s;
-  text-decoration: none;
-  box-shadow: 0 0 10px var(--accent2);
-}
-.cta:hover { transform: translateY(-3px); filter: brightness(1.1); }
-
-/* About section links same as project links */
-.about-card .link {
-  color: var(--accent2);
-  font-weight: 600;
-  text-decoration: none;
-  transition: 0.3s;
+/* Responsive */
+@media(max-width:900px){
+  nav.desktop-nav { display:none; }
+  .mobile-nav { display:flex; align-items:center; }
 }
 
-.about-card .link:hover {
-  text-decoration: underline;
-}
-/* Mobile menu styles */
-.mobile-menu {
-  display: none;
-  flex-direction: column;
-  position: absolute;
-  top: 70px;
-  right: 20px;
-  background: var(--card);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  padding: 15px;
-  z-index: 100;
-  min-width: 180px;
+/* ================= MAIN ================= */
+main{
+  max-width:1200px;
+  margin:auto;
+  padding:20px;
 }
 
-.mobile-menu a,
-.mobile-menu button {
-  display: block;
-  margin: 8px 0;
+/* ================= HERO ================= */
+.hero{
+  display:grid;
+  grid-template-columns:1fr 380px;
+  gap:50px;
+  align-items:center;
+  margin-top:40px;
 }
 
+.intro{
+  background:var(--card);
+  padding:32px;
+  border-radius:18px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(10px);
+}
+.intro h2{font-size:32px;line-height:1.3}
+.intro p{margin-top:12px;color:var(--muted);font-size:15px}
 
+.chips{
+  margin-top:18px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+}
+.chip{
+  padding:6px 14px;
+  border-radius:999px;
+  border:1px solid rgba(0,0,0,.1);
+  font-size:12px;
+}
 
-/* Profile Section */
+.cta{
+  display:inline-block;
+  margin-top:24px;
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#011;
+  padding:12px 22px;
+  border-radius:10px;
+  font-weight:700;
+  text-decoration:none;
+}
+
+/* ================= PROFILE ================= */
 .profile-container { text-align: center; margin-top: 70px; }
 .profile { position: relative; width: 340px; height: 340px; margin: 0 auto; border-radius: 50%; overflow: hidden; display: flex; align-items: center; justify-content: center; animation: float 5s ease-in-out infinite alternate; }
 .profile-img { width: 95%; height: 95%; border-radius: 50%; object-fit: cover; border: 6px solid rgba(0,0,0,0.1); z-index: 2; transition: transform 0.6s ease, box-shadow 0.6s ease; }
@@ -215,64 +222,161 @@ main { max-width: 1200px; margin: auto; padding: 20px; }
 .profile-name { margin-top: 20px; font-size: 28px; color: var(--text); font-weight: 700; letter-spacing: 1px; transition: color 0.4s; }
 .profile-role { font-size: 18px; color: var(--muted); margin-top: 5px; font-weight: 500; transition: color 0.4s; }
 
-/* Projects */
-h2.section-title { margin: 60px 0 20px; font-size: 24px; color: var(--accent); font-weight: 700; }
-.projects { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 22px; }
-.project { background: var(--card); padding: 20px; border-radius: 14px; box-shadow: var(--shadow); transition: transform 0.3s, box-shadow 0.3s, background 0.4s, color 0.4s; }
-.project:hover { transform: translateY(-6px); box-shadow: 0 10px 30px rgba(0,0,0,0.7); }
-.project h3 { margin-bottom: 8px; color: var(--text); font-size: 18px; }
-.project p { color: var(--muted); font-size: 14px; }
-.flex { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 10px; }
-.flex a { color: var(--accent2); font-weight: 600; font-size: 13px; text-decoration: none; }
-.flex a:hover { text-decoration: underline; }
 
-/* About Section */
-.about { background: var(--card); backdrop-filter: blur(10px); padding: 40px; border-radius: 16px; box-shadow: var(--shadow); margin-top: 70px; color: var(--muted); transition: background 0.4s, color 0.4s; }
-.about h3 { color: var(--accent); text-align: center; font-size: 28px; margin-bottom: 20px; }
-.about p { font-size: 15px; line-height: 1.6; }
-.about-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 22px; margin-top: 25px; }
-.about-card { background: rgba(255,255,255,0.05); padding: 20px; border-radius: 14px; box-shadow: var(--shadow); transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.4s, color 0.4s; }
-.about-card:hover { transform: translateY(-4px); box-shadow: 0 8px 25px rgba(0,0,0,0.4); }
-.about-card h4 { color: var(--accent2); margin-bottom: 10px; }
-.about-card ul { padding-left: 18px; }
-.about .social-links { margin-top: 35px; text-align: center; }
-.about .social-links a { margin: 0 8px; color: var(--accent); font-size: 20px; transition: transform 0.3s; }
-.about .social-links a:hover { transform: scale(1.2); }
+@keyframes spin{to{transform:rotate(360deg)}}
 
-/* Contact */
-form { display: flex; flex-direction: column; gap: 12px; max-width: 100%; margin: auto; margin-bottom: 50px; }
-form input, form textarea { padding: 12px; border-radius: 8px; border: 1px solid #ccc; font-size: 14px; width: 100%; background: var(--card); color: var(--text); transition: background 0.4s, color 0.4s; }
-body.dark-theme form input, body.dark-theme form textarea { color: #fff; border-color: rgba(255,255,255,0.2); }
-form button { padding: 12px; border: none; border-radius: 10px; background: var(--accent); color: #fff; font-weight: 600; cursor: pointer; transition: 0.3s; width: 100%; }
-form button:hover { transform: scale(1.05); }
+/* ================= SECTIONS ================= */
+.section-title{
+  margin:70px 0 20px;
+  font-size:26px;
+  color:var(--accent);
+}
 
-/* Footer */
-footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 14px; padding-bottom: 30px; transition: color 0.4s; }
+.projects{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+  gap:22px;
+}
+.project{
+  background:var(--card);
+  padding:20px;
+  border-radius:14px;
+  box-shadow:var(--shadow);
+  transition:.3s;
+}
+.project:hover{transform:translateY(-6px)}
+.project p{color:var(--muted)}
+.project ul{
+  margin-top:8px;
+  font-size:13px;
+  color:var(--muted);
+}
+.flex{
+  display:flex;
+  gap:10px;
+  margin-top:10px;
+}
+.flex a{
+  color:var(--accent2);
+  font-weight:600;
+  text-decoration:none;
+}
 
+/* ================= ABOUT ================= */
+.about{
+  background:var(--card);
+  padding:40px;
+  border-radius:16px;
+  box-shadow:var(--shadow);
+  margin-top:70px;
+}
+.about-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:22px;
+  margin-top:25px;
+}
+.about-card{
+  background:rgba(255,255,255,.05);
+  padding:20px;
+  border-radius:14px;
+}
+.social-links {
+  display: flex;
+  justify-content: center;  /* center aligned */
+  gap: 18px;                 /* spacing between icons */
+  margin-top: 30px;
+  flex-wrap: wrap;            /* responsive for mobile */
+}
+
+.social-links a {
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card);
+  border-radius: 50%;
+  color: var(--accent2);
+  font-size: 20px;
+  text-decoration: none;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  transition: transform 0.3s ease, background 0.3s ease, color 0.3s ease;
+}
+
+.social-links a:hover {
+  transform: translateY(-4px) scale(1.1);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  color: #fff;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+}
+
+/* ================= CONTACT ================= */
+form{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  margin-bottom:50px;
+}
+form input, form textarea{
+  padding:12px;
+  border-radius:8px;
+  border:1px solid #ccc;
+  background:var(--card);
+  color:var(--text);
+}
+form button{
+  padding:12px;
+  border:none;
+  border-radius:10px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:600;
+  cursor:pointer;
+}
+
+/* ================= FOOTER ================= */
+footer{
+  text-align:center;
+  margin-top:60px;
+  color:var(--muted);
+}
 /* WhatsApp Button */
 .whatsapp-btn { position: fixed; bottom: 20px; right: 20px; background: #25D366; color: #fff; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: var(--shadow); transition: transform 0.3s; z-index: 10; }
 .whatsapp-btn:hover { transform: scale(1.1); }
 
-@keyframes rotate { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-@keyframes float { 0% { transform: translateY(0); } 100% { transform: translateY(-18px); } }
-@keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
-@keyframes fadeDown { from { opacity: 0; transform: translateY(-40px); } to { opacity: 1; transform: translateY(0); } }
-
-@media (max-width: 1024px) { .hero{grid-template-columns:1fr 1fr;} }
-@media (max-width: 768px) { .hero{grid-template-columns:1fr;} }
-@media screen and (max-width: 900px) {
-  nav { display: none; }
-  .mobile-menu-btn { display: block; }
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr}
 }
-@media screen and (min-width: 901px) {
-  .mobile-menu-btn { display: none; }
-  .mobile-menu { display: none !important; }
+/* Hide mobile nav on desktop */
+.mobile-nav { display: none; }
+
+/* Responsive nav */
+@media(max-width: 900px){
+  nav.desktop-nav { display: none; }
+  .mobile-nav { display: flex; align-items: center; gap: 10px; position: relative; }
+  #mobile-menu a, #mobile-menu button { width: 100%; text-align: left; padding: 10px; border-radius: 8px; }
 }
 
 
-  </style>
+.socials {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.socials a {
+  padding: 8px 14px;
+  border-radius: 8px;
+  background: var(--card);
+  color: var(--text);
+  text-decoration: none;
+  font-size: 14px;
+}
+
+</style>
 </head>
-<body>
+<body class="dark-theme">
 
 <header>
   <div class="brand">
@@ -283,157 +387,242 @@ footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 1
     </div>
   </div>
 
-  <nav id="desktop-nav">
-    <a href="#projects">Projects</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#" id="cv-btn">Download CV</a>
-    <button id="theme-toggle">🌙</button>
+  <!-- Desktop Nav -->
+  <nav class="desktop-nav">
+    <a class="nav-btn" href="#projects">Projects</a>
+    <a class="nav-btn" href="#about">About</a>
+    <a class="nav-btn" href="#contact">Contact</a>
+    <a class="nav-btn" href="Talha_Afridi_Professional_CV.pdf" download id="cv-btn">Download CV</a>
+    <button class="nav-btn" id="theme-toggle">🌙</button>
   </nav>
 
-  <button class="mobile-menu-btn" id="mobile-menu-btn"><i class="fas fa-bars"></i></button>
-
-  <div class="mobile-menu" id="mobile-menu">
-    <a href="#projects">Projects</a>
-    <a href="#about">About</a>
-    <a href="#contact">Contact</a>
-    <a href="#" id="mobile-cv-btn">Download CV</a>
-    <button id="mobile-theme-toggle">🌙</button>
+  <!-- Mobile Nav -->
+  <div class="mobile-nav">
+    <button id="mobile-menu-btn" class="mobile-menu-icon">☰</button>
+    <div id="mobile-menu">
+      <a class="mobile-nav-btn" href="#projects">Projects</a>
+      <a class="mobile-nav-btn" href="#about">About</a>
+      <a class="mobile-nav-btn" href="#contact">Contact</a>
+      <a class="mobile-nav-btn" href="Talha_Afridi_Professional_CV.pdf" download id="mobile-cv-btn">Download CV</a>
+      <button class="mobile-nav-btn" id="mobile-theme-toggle">🌙</button>
+    </div>
   </div>
 </header>
 
 
-  <main>
-    <!-- Hero Section -->
-    <section class="hero">
-      <div class="intro">
-        <h2>👋 Hi, I’m Talha — Flutter, FastAPI & Python Developer</h2>
-        <p>I build modern apps using Flutter, FastAPI, and Firebase — with clean architecture, BLoC state management, and secure backend integration. My goal is to create seamless digital experiences from backend to frontend.</p>
-        <div class="chips">
-          <div class="chip">Flutter</div><div class="chip">FastAPI</div><div class="chip">Firebase</div>
-          <div class="chip">Hive</div><div class="chip">SQLite</div><div class="chip">Python</div>
-          <div class="chip">BLoC</div><div class="chip">Provider</div><div class="chip">Cybersecurity</div>
-        </div>
-        <a class="cta" href="#projects">Explore Projects 🚀</a>
-      </div>
-      <!-- Profile Section -->
-      <div class="profile-container">
-        <div class="profile">
-          <div class="profile-glow"></div>
-          <img src="profile.jpeg" alt="Talha Afridi" class="profile-img">
-        </div>
-        <h2 class="profile-name">Talha Afridi</h2>
-        <p class="profile-role">Flutter & Cybersecurity Developer</p>
-      </div>
-    </section>
- </section>
 
-    <h2 id="projects" class="section-title">🚧 Featured Projects</h2>
-    <div class="projects">
-      <div class="card project">
-          <h3>Smart Expense Manager</h3>
-          <p>Flutter app with Hive offline DB, categories, charts, and export to PDF. FastAPI backend for sync.</p>
-          <div class="flex"><a href="https://github.com/q343313/Expence-Tracker-App" target="_blank">View Code</a> <a href="projects/expence.html">View Details</a> </div>
-        </div>
-        <div class="card project">
-          <h3>E-Local Market</h3>
-          <p>Flutter frontend + FastAPI backend demo with authentication, image upload, and push notifications.</p>
-          <div class="flex"><a href="https://github.com/q343313/localmarket" target="_blank">View Code</a> <a href="projects/market.html">View Details</a> </div>
-        </div>
+<main>
 
-        <div class="card project">
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="intro">
+    <h2>👋 Hi, I’m Talha — Flutter, FastAPI & Python Developer</h2>
+    <p>
+      I build modern, production-ready applications using Flutter, FastAPI,
+      Firebase, and Python with clean architecture and secure backend integration.
+    </p>
 
-          <h3>Password Manager</h3>
-          <p>Single-page Flutter-style Password manager that secure your password built with flutter. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/Password-Manager.git" target="_blank">View Code</a> <a href="projects/pasman.html">View Details</a> </div>
-        </div>
-        <div class="card project">
-          <h3>AI Chat App</h3>
-          <p>Flutter chat interface integrated with OpenRouter / custom backend. Features streaming responses and offline cache.</p>
-          <div class="flex"><a href="https://github.com/q343313/chatGptApp" target="_blank">View Code</a> <a href="projects/chat.html">View Details</a></div>
-        </div>
-         <div class="card project">
-     
-          <h3>TODO App</h3>
-          <p>Single-page Flutter-style TODO-APP site built with HTML/CSS/JS. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/TODO-APP" target="_blank">View Code</a> <a href="projects/ads.html">View Details</a></div>
-        </div>
+    <!-- ADDED IMPACT LINE -->
+    <p><b>Impact:</b> 15+ apps built • Offline-first systems • Secure APIs • Clean Architecture</p>
+
+    <div class="chips">
+      <div class="chip">Flutter</div>
+      <div class="chip">FastAPI</div>
+      <div class="chip">Firebase</div>
+      <div class="chip">Hive</div>
+      <div class="chip">SQLite</div>
+      <div class="chip">Python</div>
+      <div class="chip">BLoC</div>
+      <div class="chip">Provider</div>
+      <div class="chip">Cybersecurity</div>
     </div>
 
-     <section id="projects" class="mt">
-      <h2 id="projects" class="section-title">🚧 Python Projects</h2>
-      <div class="projects">
-        <div class="card project">
+    <a class="cta" href="#projects">Explore Projects 🚀</a>
+  </div>
 
-          <h3>All About Python</h3>
-          <p>python with Hive offline DB, categories, charts, and export to PDF. FastAPI backend for sync.</p>
-          <div class="flex"><a href="https://github.com/q343313/full_python" target="_blank">View Code</a> </div>
-        </div>
-        <div class="card project">
-          <h3>Python Advanced</h3>
-          <p>advance python with api firebase etc.</p>
-          <div class="flex"><a href="https://github.com/q343313/python1" target="_blank">View Code</a></div>
-        </div>
+<div class="profile-container">
+  <div class="profile">
+    <div class="profile-glow"></div>
+    <img src="profile.jpeg" alt="Talha Afridi" class="profile-img">
+  </div>
 
-        <div class="card project">
+  <h2>Talha Afridi</h2>
+  <p style="color:var(--muted)">Flutter & Cybersecurity Developer</p>
+</div>
 
-          <h3>Password Tracker</h3>
-          <p>Single-page Password tracker Password manager that secure your password built with HTML/CSS/JS. Lightweight, mobile-first, easy to customize.</p>
-          <div class="flex"><a href="https://github.com/q343313/pasword-tracker-app-python" target="_blank">View Code</a>  </div>
-        </div>
-        <div class="card project">
-          <h3>AI Chat App</h3>
-          <p>Ai chat App using python integrated with OpenRouter / custom backend. Features streaming responses and offline cache.</p>
-          <div class="flex"><a href="https://github.com/q343313/chat-app-in-python" target="_blank">View Code</a></div>
-        </div>
+</section>
 
+<!-- ================= PROJECTS ================= -->
+<h2 id="projects" class="section-title">🚧 Featured Projects</h2>
+<div class="projects">
+
+  <div class="project">
+    <h3>Smart Expense Manager</h3>
+    <p>Flutter app with Hive offline database and FastAPI backend sync.</p>
+    <ul>
+      <li>✔ Offline-first architecture</li>
+      <li>✔ Clean Architecture + BLoC</li>
+      <li>✔ Secure API integration</li>
+    </ul>
+    <div class="flex">
+      <a href="https://github.com/q343313/Expence-Tracker-App" target="_blank">View Code</a>
+      <a href="projects/expence.html">View Details</a>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>E-Local Market</h3>
+    <p>Flutter frontend with FastAPI backend, auth & image uploads.</p>
+    <ul>
+      <li>✔ Authentication & authorization</li>
+      <li>✔ REST API backend</li>
+      <li>✔ Scalable architecture</li>
+    </ul>
+    <div class="flex">
+      <a href="https://github.com/q343313/localmarket" target="_blank">View Code</a>
+      <a href="projects/market.html">View Details</a>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>Password Manager</h3>
+    <p>Secure password manager built with Flutter-style UI.</p>
+    <ul>
+      <li>✔ Encryption-focused design</li>
+      <li>✔ Local secure storage</li>
+      <li>✔ Clean UI/UX</li>
+    </ul>
+    <div class="flex">
+      <a href="https://github.com/q343313/Password-Manager.git" target="_blank">View Code</a>
+      <a href="projects/pasman.html">View Details</a>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>AI Chat App</h3>
+    <p>Chat app integrated with OpenRouter and custom backend.</p>
+    <ul>
+      <li>✔ Streaming responses</li>
+      <li>✔ API-based architecture</li>
+      <li>✔ Offline caching</li>
+    </ul>
+    <div class="flex">
+      <a href="https://github.com/q343313/chatGptApp" target="_blank">View Code</a>
+      <a href="projects/chat.html">View Details</a>
+    </div>
+  </div>
+
+  <div class="project">
+    <h3>TODO App</h3>
+    <p>Lightweight, mobile-first TODO app using HTML, CSS & JS.</p>
+    <ul>
+      <li>✔ Responsive design</li>
+      <li>✔ Local storage</li>
+      <li>✔ Clean UI</li>
+    </ul>
+    <div class="flex">
+      <a href="https://github.com/q343313/TODO-APP" target="_blank">View Code</a>
+      <a href="projects/ads.html">View Details</a>
+    </div>
+  </div>
+
+</div>
+
+<!-- ================= PYTHON PROJECTS ================= -->
+<section>
+  <h2 class="section-title">🚧 Python Projects</h2>
+  <div class="projects">
+
+    <div class="project">
+      <h3>All About Python</h3>
+      <p>Complete Python learning & project repository.</p>
+      <ul>
+        <li>✔ Core to advanced Python</li>
+        <li>✔ Real practice projects</li>
+      </ul>
+      <div class="flex">
+        <a href="https://github.com/q343313/full_python" target="_blank">View Code</a>
       </div>
-    </section>
+    </div>
 
+    <div class="project">
+      <h3>Python Advanced</h3>
+      <p>Advanced Python with APIs & Firebase integration.</p>
+      <ul>
+        <li>✔ API handling</li>
+        <li>✔ Backend logic</li>
+      </ul>
+      <div class="flex">
+        <a href="https://github.com/q343313/python1" target="_blank">View Code</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>Password Tracker (Python)</h3>
+      <p>Password tracking app built using Python.</p>
+      <ul>
+        <li>✔ File handling</li>
+        <li>✔ Secure logic</li>
+      </ul>
+      <div class="flex">
+        <a href="https://github.com/q343313/pasword-tracker-app-python" target="_blank">View Code</a>
+      </div>
+    </div>
+
+    <div class="project">
+      <h3>AI Chat App (Python)</h3>
+      <p>AI chat app using Python and OpenRouter APIs.</p>
+      <ul>
+        <li>✔ API integration</li>
+        <li>✔ Modular backend</li>
+      </ul>
+      <div class="flex">
+        <a href="https://github.com/q343313/chat-app-in-python" target="_blank">View Code</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ABOUT ================= -->
 <section class="about" id="about">
   <h3>About Me</h3>
   <p>
-    I'm <b>Talha Afridi</b> — a passionate <b>Flutter & Fullstack Developer</b> and <b>Cybersecurity student</b> who loves building real-world digital products with modern technologies.
+    I'm <b>Talha Afridi</b>, a <b>Flutter & Fullstack Developer</b> and
+    <b>Cybersecurity student</b> focused on building real-world digital products.
   </p>
 
   <div class="about-grid">
 
     <div class="about-card">
-      <h4>🎓 Education And Personal Info</h4>
+      <h4>🎓 Education & Personal Info</h4>
       <ul>
-        <li><b>BS Cybersecurity</b> — IMSciences University, Peshawar (1st Semester)</li>
-        <li><b>F.Sc (Pre-Engineering)</b> — Islamia College, Peshawar (830 / 1200 Marks)</li>
-        <li><b>Matriculation</b> — Afridi Model School & College (1017 / 1100 Marks)</li>
-         <p><b>Email:</b> <a href="mailto:talhashahafridi@gmail.com" class="link">talhashahafridi@gmail.com</a></p>
-          <p><b>Github:</b> <a href="mailto:https://github.com/q343313" class="link">github.com/q343313</a></p>
-      <p><b>Phone:</b> 0318-2586785</p>
-      <p><b>Location:</b> Peshawar, Pakistan</p>
+        <li><b>BS Cybersecurity</b> — IMSciences University (1st Semester)</li>
+        <li><b>F.Sc Pre-Engineering</b> — Islamia College Peshawar</li>
+        <li><b>Matric</b> — Afridi Model School & College</li>
       </ul>
+      <p><b>Email:</b> talhashahafridi@gmail.com</p>
+      <p><b>Location:</b> Peshawar, Pakistan</p>
     </div>
 
     <div class="about-card">
       <h4>💡 Technical Skills</h4>
       <p>
-        <b>App Development:</b> Flutter, Dart, Provider, BLoC, MVVM, UI/UX Design<br>
-        <b>Backend:</b> FastAPI, Python, Firebase, REST APIs, JSON, SQLite, Hive<br>
-        <b>Data Science:</b> NumPy, Pandas, Matplotlib<br>
-        <b>Cyber & OS Tools:</b> Kali Linux, Networking, Git & GitHub, Terminal Commands<br>
-        <b>Other Skills:</b> Problem Solving, Debugging, Deployment (Play Store & Web)
+        Flutter, Dart, BLoC, Provider, FastAPI, Firebase, Python, REST APIs,
+        SQLite, Hive, Git, GitHub, Kali Linux
       </p>
     </div>
-
 
     <div class="about-card">
       <h4>🚀 Experience</h4>
       <p>
-        - Developed <b>15+ real-world Flutter apps</b> (ChatGPT App, News App, Password Manager, Expense Tracker, Todo List, etc.)<br>
-        - Created <b>30+ Python projects</b> including automation, file management, and backend systems.<br>
-        - Hands-on with <b>Kali Linux</b> and ethical hacking fundamentals.<br>
-        - Skilled in <b>UI/UX design</b> using Figma and responsive layouts.
+        Built 15+ Flutter apps and 30+ Python projects including backend systems,
+        automation, and AI-powered applications.
       </p>
     </div>
 
-  
+  </div>
+   
   <div class="social-links">
     <a href="https://web.facebook.com/profile.php?id=61580024770723" target="_blank" title="Facebook"><i class="fab fa-facebook-f"></i></a>
     <a href="https://www.instagram.com/talha_afridi_56/" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
@@ -443,80 +632,94 @@ footer { text-align: center; margin-top: 60px; color: var(--muted); font-size: 1
   </div>
 </section>
 
+<!-- ================= HOW I BUILD ================= -->
+<section class="about">
+  <h3>🛠 How I Build Software</h3>
+  <div class="about-grid">
+    <div class="about-card">
+      <h4>Architecture</h4>
+      <p>Clean Architecture, scalable folder structures.</p>
+    </div>
+    <div class="about-card">
+      <h4>State Management</h4>
+      <p>BLoC & Provider based on app complexity.</p>
+    </div>
+    <div class="about-card">
+      <h4>Security Mindset</h4>
+      <p>Validation, secure APIs, cybersecurity-first thinking.</p>
+    </div>
+  </div>
+</section>
 
+<!-- ================= WHY WORK WITH ME ================= -->
+<section class="about">
+  <h3>✅ Why Work With Me</h3>
+  <ul style="line-height:1.8">
+    <li>✔ Real-world, production-ready apps</li>
+    <li>✔ Clean, maintainable code</li>
+    <li>✔ Strong frontend + backend skills</li>
+    <li>✔ Cybersecurity-aware development</li>
+  </ul>
+</section>
 
-   <h2 id="contact" class="section-title">📬 Contact Me</h2>
-  <form id="contact-form">
-    <input type="text" id="name" placeholder="Your name" required>
-    <input type="email" id="email" placeholder="Your email" required>
-    <textarea id="message" placeholder="Your message..." required></textarea>
-    <button type="submit" class="submit-btn">Send Message</button>
-  </form>
+<!-- ================= CONTACT ================= -->
+<h2 id="contact" class="section-title">📬 Contact Me</h2>
+<form>
+  <input type="text" placeholder="Your Name" required>
+  <input type="email" placeholder="Your Email" required>
+  <textarea placeholder="Your Message..." required></textarea>
+  <button type="submit">Send Message</button>
+</form>
 
-<footer>© <span id="year"></span> Talha Afridi — All rights reserved.</footer>
+<footer>© 2025 Talha Afridi — All rights reserved.</footer>
 <a href="https://wa.me/923182586785" target="_blank" class="whatsapp-btn" title="Chat on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+
+</main>
 
 
 
 
 <script>
-// MOBILE MENU TOGGLE
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+ const mobileMenuBtn = document.getElementById('mobile-menu-btn');
 const mobileMenu = document.getElementById('mobile-menu');
+const mobileBtns = document.querySelectorAll('.mobile-nav-btn');
 
+// Toggle mobile menu
 mobileMenuBtn.addEventListener('click', () => {
   mobileMenu.style.display = mobileMenu.style.display === 'flex' ? 'none' : 'flex';
 });
 
-// THEME TOGGLE
+// Auto-close menu when clicking any button/link
+mobileBtns.forEach(btn=>{
+  btn.addEventListener('click', () => mobileMenu.style.display='none');
+});
+
+// Theme toggle
 const themeBtn = document.getElementById('theme-toggle');
 const mobileThemeBtn = document.getElementById('mobile-theme-toggle');
-const savedTheme = localStorage.getItem('theme');
-
-if(savedTheme){
-  document.body.classList.add(savedTheme+'-theme');
-  themeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
-  mobileThemeBtn.textContent = savedTheme === 'light' ? '☀️' : '🌙';
-} else {
-  document.body.classList.add('dark-theme');
-  themeBtn.textContent = '🌙';
-  mobileThemeBtn.textContent = '🌙';
-}
 
 function toggleTheme(){
   if(document.body.classList.contains('light-theme')){
-    document.body.classList.remove('light-theme');
-    document.body.classList.add('dark-theme');
-    themeBtn.textContent = '🌙';
-    mobileThemeBtn.textContent = '🌙';
+    document.body.classList.replace('light-theme','dark-theme');
+    themeBtn.textContent='🌙';
+    mobileThemeBtn.textContent='🌙';
     localStorage.setItem('theme','dark');
   } else {
-    document.body.classList.remove('dark-theme');
-    document.body.classList.add('light-theme');
-    themeBtn.textContent = '☀️';
-    mobileThemeBtn.textContent = '☀️';
+    document.body.classList.replace('dark-theme','light-theme');
+    themeBtn.textContent='☀️';
+    mobileThemeBtn.textContent='☀️';
     localStorage.setItem('theme','light');
   }
 }
 
 themeBtn.addEventListener('click', toggleTheme);
-mobileThemeBtn.addEventListener('click', () => {
-  toggleTheme();
-  mobileMenu.style.display = 'none';
-});
+mobileThemeBtn.addEventListener('click', toggleTheme);
 
-// CV DOWNLOAD
-function downloadCV(e){
-  e.preventDefault();
-  const link = document.createElement('a');
-  link.href = 'Talha_Afridi_Professional_CV.pdf';
-  link.download = 'Talha_Afridi_Professional_CV.pdf';
-  link.click();
-}
+
 
 document.getElementById('cv-btn').addEventListener('click', downloadCV);
 document.getElementById('mobile-cv-btn').addEventListener('click', e => { downloadCV(e); mobileMenu.style.display='none'; });
 </script>
 </body>
 </html>
-
